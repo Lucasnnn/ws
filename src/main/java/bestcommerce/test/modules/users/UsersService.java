@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import bestcommerce.test.config.EmailAlreadyTakenException;
+
 @Service
 public class UsersService {
 
@@ -21,6 +23,10 @@ public class UsersService {
     }
 
     public Users createUser(Users user) {
+        if (isEmailAlreadyTaken(user)) {
+            throw new EmailAlreadyTakenException("O email: " + user.getEmail() + " já possui cadastro !");
+        }
+
         return usersDao.save(user);
     }
 
@@ -36,15 +42,14 @@ public class UsersService {
         usersDao.deleteById(id);
     }
 
-    public boolean isEmailAlreadyTaken(String email) {
-        Optional<Users> existingUser = usersDao.findByEmail(email);
-        return existingUser.isPresent();
-    }
-
-    public void registerUser(Users user) {
-        if (isEmailAlreadyTaken(user.getEmail())) {
-        } else {
-            usersDao.save(user);
+    public boolean isEmailAlreadyTaken(Users user) {
+        if (user.getCostumer() == null) {
+            user.getCostumer().setId(null);
         }
+
+        Optional<Users> existingUser = usersDao.findUserByEmailAndCustomerId(user.getEmail(),
+                user.getCostumer().getId());
+
+        return existingUser.isPresent();
     }
 }

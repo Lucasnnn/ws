@@ -1,10 +1,12 @@
 package bestcommerce.test.modules.users;
 
+import bestcommerce.test.modules.costumers.Costumers;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Users {
@@ -13,14 +15,20 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String email;
 
+    @Column(nullable = false)
     private String username;
 
+    @Column(nullable = false)
     private String password;
 
     @Column(name = "active", nullable = false, columnDefinition = "boolean default true")
     private boolean active;
+
+    @OneToMany
+    private Costumers costumer;
 
     // ===== METHODS
 
@@ -62,5 +70,13 @@ public class Users {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public Costumers getCostumer() {
+        return costumer;
+    }
+
+    public void setCostumer(Costumers costumer) {
+        this.costumer = costumer;
     }
 }
