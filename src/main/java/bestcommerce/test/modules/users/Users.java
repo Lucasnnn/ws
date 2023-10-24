@@ -1,15 +1,16 @@
 package bestcommerce.test.modules.users;
 
+import bestcommerce.test.config.TimestampedEntity;
 import bestcommerce.test.modules.costumers.Costumers;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Users {
+public class Users extends TimestampedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +28,7 @@ public class Users {
     @Column(name = "active", nullable = false, columnDefinition = "boolean default true")
     private boolean active;
 
-    @OneToMany
+    @ManyToOne
     private Costumers costumer;
 
     // ===== METHODS

@@ -1,5 +1,6 @@
 package bestcommerce.test.modules.costumers;
 
+import bestcommerce.test.config.TimestampedEntity;
 import bestcommerce.test.modules.users.Users;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,7 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 
 @Entity
-public class Costumers {
+public class Costumers extends TimestampedEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -53,5 +54,4 @@ public class Costumers {
     public void setOwner(Users owner) {
         this.owner = owner;
     }
-
 }
