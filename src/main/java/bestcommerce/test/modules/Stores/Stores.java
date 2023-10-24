@@ -1,7 +1,9 @@
 package bestcommerce.test.modules.Stores;
 
+import bestcommerce.test.modules.Customers.Customers;
 import bestcommerce.test.utils.AbstractEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Stores extends AbstractEntity {
@@ -19,6 +21,9 @@ public class Stores extends AbstractEntity {
     private String country;
 
     private String zipCode;
+
+    @ManyToOne
+    private Customers customer;
 
     // Getters e Setters
 
@@ -76,5 +81,13 @@ public class Stores extends AbstractEntity {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public Customers getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customers customer) {
+        this.customer = customer;
     }
 }
