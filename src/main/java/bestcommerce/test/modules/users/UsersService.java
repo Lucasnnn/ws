@@ -43,10 +43,6 @@ public class UsersService {
     }
 
     public boolean isEmailAlreadyTaken(Users user) {
-        if (user.getCustomer() == null) {
-            user.getCustomer().setId(null);
-        }
-
         Optional<Users> existingUser = usersDao.findUserByEmailAndCustomerId(user.getEmail(),
                 user.getCustomer().getId());
 

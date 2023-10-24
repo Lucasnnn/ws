@@ -24,6 +24,9 @@ public class Users extends AbstractEntity {
     @ManyToOne
     private Customers customer;
 
+    @Column(columnDefinition = "TEXT")
+    private String token;
+
     // Getters e Setters
 
     public String getUsername() {
@@ -64,5 +67,13 @@ public class Users extends AbstractEntity {
 
     public void setCustomer(Customers customer) {
         this.customer = customer;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

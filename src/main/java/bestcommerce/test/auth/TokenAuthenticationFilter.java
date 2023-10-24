@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Service
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
-    private List<String> publicEndpoints = Arrays.asList("/auth/create", "/auth/login");
+    private List<String> publicEndpoints = Arrays.asList("users/create", "users/login", "swagger-ui", "api-docs");
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -42,7 +42,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private boolean isValidToken(String token) {
-        if (token.equals("testandu")) {
+        if (token != null && token.equals("testandu")) {
             return true;
         }
 
@@ -51,7 +51,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     private boolean isPublicEndpoint(String requestURI) {
         for (String publicEndpoint : this.publicEndpoints) {
-            if (requestURI.startsWith(publicEndpoint)) {
+            if (requestURI.contains(publicEndpoint)) {
                 return true;
             }
         }
