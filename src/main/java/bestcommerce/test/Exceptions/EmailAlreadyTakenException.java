@@ -1,4 +1,4 @@
-package bestcommerce.test.config;
+package bestcommerce.test.Exceptions;
 
 public class EmailAlreadyTakenException extends RuntimeException {
     public EmailAlreadyTakenException(String message) {

@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import bestcommerce.test.config.EmailAlreadyTakenException;
+import bestcommerce.test.Exceptions.EmailAlreadyTakenException;
 
 @Service
 public class UsersService {

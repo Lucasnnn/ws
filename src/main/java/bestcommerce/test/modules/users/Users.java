@@ -1,7 +1,7 @@
 package bestcommerce.test.modules.users;
 
-import bestcommerce.test.config.AbstractEntity;
 import bestcommerce.test.modules.costumers.Costumers;
+import bestcommerce.test.utils.AbstractEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
