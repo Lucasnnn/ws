@@ -1,21 +1,22 @@
-package bestcommerce.test.modules.costumers;
+package bestcommerce.test.modules.Customers;
 
 import bestcommerce.test.modules.users.Users;
 import bestcommerce.test.utils.AbstractEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToOne;
 
 @Entity
-public class Costumers extends AbstractEntity {
+public class Customers extends AbstractEntity {
 
     private String username;
 
     private String dateBirth;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Users owner;
 
-    // ===== METHODS
+    // Getters e Setters
 
     public String getUsername() {
         return username;

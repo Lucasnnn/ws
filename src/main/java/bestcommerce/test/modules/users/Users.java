@@ -1,6 +1,6 @@
 package bestcommerce.test.modules.users;
 
-import bestcommerce.test.modules.costumers.Costumers;
+import bestcommerce.test.modules.Customers.Customers;
 import bestcommerce.test.utils.AbstractEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,9 +22,9 @@ public class Users extends AbstractEntity {
     private boolean active;
 
     @ManyToOne
-    private Costumers costumer;
+    private Customers customer;
 
-    // ===== METHODS
+    // Getters e Setters
 
     public String getUsername() {
         return username;
@@ -58,11 +58,11 @@ public class Users extends AbstractEntity {
         this.active = active;
     }
 
-    public Costumers getCostumer() {
-        return costumer;
+    public Customers getCustomer() {
+        return customer;
     }
 
-    public void setCostumer(Costumers costumer) {
-        this.costumer = costumer;
+    public void setCustomer(Customers customer) {
+        this.customer = customer;
     }
 }

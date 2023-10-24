@@ -1,4 +1,4 @@
-package bestcommerce.test.modules.costumers;
+package bestcommerce.test.modules.Customers;
 
 import java.util.List;
 
@@ -12,20 +12,19 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@Tag(name = "Costumers")
-@RequestMapping("/costumers")
-public class CostumersController {
+@Tag(name = "Customers")
+@RequestMapping("/customers")
+public class CustomersController {
     @Autowired
-    private CostumersService costumersService;
+    private CustomersService customersService;
 
     @PostMapping("/create")
-    public Costumers createCostumer(@RequestBody Costumers costumer) {
-        return costumersService.createCostumer(costumer);
+    public Customers createCustomer(@RequestBody Customers customer) {
+        return customersService.createCustomer(customer);
     }
 
     @GetMapping("/listAll")
-    public List<Costumers> getAllCostumers() {
-        return costumersService.getAllCostumers();
+    public List<Customers> getAllCustomers() {
+        return customersService.getAllCustomers();
     }
-
 }
