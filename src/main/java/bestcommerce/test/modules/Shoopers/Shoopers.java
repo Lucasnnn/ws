@@ -9,6 +9,8 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class Shoopers extends AbstractEntity {
 
+    private String dateBirth;
+
     private String document;
 
     private String phoneNumber;
@@ -51,5 +53,13 @@ public class Shoopers extends AbstractEntity {
 
     public void setShippingAddress(Adresses shippingAddress) {
         this.shippingAddress = shippingAddress;
+    }
+
+    public String getDateBirth() {
+        return dateBirth;
+    }
+
+    public void setDateBirth(String dateBirth) {
+        this.dateBirth = dateBirth;
     }
 }
