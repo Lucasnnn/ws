@@ -1,20 +1,13 @@
 package bestcommerce.test.modules.users;
 
-import bestcommerce.test.config.TimestampedEntity;
+import bestcommerce.test.config.AbstractEntity;
 import bestcommerce.test.modules.costumers.Costumers;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Users extends TimestampedEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Users extends AbstractEntity {
 
     @Column(nullable = false)
     private String email;
@@ -32,14 +25,6 @@ public class Users extends TimestampedEntity {
     private Costumers costumer;
 
     // ===== METHODS
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;
