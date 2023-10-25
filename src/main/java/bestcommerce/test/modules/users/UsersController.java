@@ -1,10 +1,9 @@
 package bestcommerce.test.modules.users;
 
-import java.util.List;
+import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,9 +26,11 @@ public class UsersController {
     @Autowired
     private UsersService usersService;
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Users user, HttpServletRequest request) {
+    @PostMapping("/logim")
+    public ResponseEntity<String> login(@RequestBody Users user, HttpServletRequest request, Principal principal) {
         Customers own = domain.getCustomer(request);
+
+        System.out.println(principal.getName());
 
         return ResponseEntity.ok("Usuário criado com sucesso");
     }
@@ -49,10 +50,5 @@ public class UsersController {
         } catch (EmailAlreadyTakenException e) {
             return ResponseEntity.badRequest().body("Email in use !!!");
         }
-    }
-
-    @GetMapping("/listAll")
-    public List<Users> getAllUsers(HttpServletRequest request) {
-        return usersService.getAllUsers();
     }
 }

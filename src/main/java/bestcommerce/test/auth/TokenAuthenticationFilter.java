@@ -1,12 +1,20 @@
 package bestcommerce.test.auth;
 
 import java.io.IOException;
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import bestcommerce.test.modules.users.Users;
+import bestcommerce.test.modules.users.UsersService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,6 +22,10 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Service
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
+
+    @Autowired
+    private UsersService usersService;
+
     private List<String> publicEndpoints = Arrays.asList("users/create", "users/login", "swagger-ui", "api-docs");
 
     @Override
@@ -42,7 +54,20 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private boolean isValidToken(String token) {
-        if (token != null && token.equals("testandu")) {
+        if (token == null) {
+            return false;
+        }
+
+        Users user = usersService.getByToken(token);
+
+        if (user != null) {
+            Principal principal = new CustomPrincipal(user.getId().toString());
+
+            Authentication authentication = new UsernamePasswordAuthenticationToken(principal, token,
+                    new ArrayList<>());
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
             return true;
         }
 

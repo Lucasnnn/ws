@@ -22,6 +22,10 @@ public class UsersService {
         return usersDao.findById(id).orElse(null);
     }
 
+    public Users getByToken(String token) {
+        return usersDao.findByToken(token).orElse(null);
+    }
+
     public Users createUser(Users user) {
         if (isEmailAlreadyTaken(user)) {
             throw new EmailAlreadyTakenException("O email: " + user.getEmail() + " já possui cadastro !");
@@ -35,6 +39,7 @@ public class UsersService {
             user.setId(id);
             return usersDao.save(user);
         }
+
         return null;
     }
 
