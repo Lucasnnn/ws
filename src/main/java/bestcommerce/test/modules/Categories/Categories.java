@@ -11,7 +11,7 @@ public class Categories extends AbstractEntity {
 
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Customers customer;
 
     // Getters e Setters

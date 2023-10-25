@@ -1,7 +1,5 @@
 package bestcommerce.test.modules.users;
 
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import bestcommerce.test.Exceptions.DomainException;
 import bestcommerce.test.Exceptions.EmailAlreadyTakenException;
 import bestcommerce.test.modules.Customers.Customers;
 import bestcommerce.test.utils.DomainUtil;
@@ -31,7 +30,7 @@ public class UsersController {
         Customers own = domain.getCustomer(request);
 
         if (own == null) {
-            return ResponseEntity.badRequest().body("Not valid domain !");
+            throw new DomainException();
         }
 
         try {
@@ -56,7 +55,7 @@ public class UsersController {
         Customers own = domain.getCustomer(request);
 
         if (own == null) {
-            return ResponseEntity.badRequest().body("Not valid domain !");
+            throw new DomainException();
         }
 
         try {
