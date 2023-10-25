@@ -2,6 +2,7 @@ package bestcommerce.test.modules.users;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,8 @@ public class UsersService {
         if (isEmailAlreadyTaken(user)) {
             throw new EmailAlreadyTakenException("O email: " + user.getEmail() + " já possui cadastro !");
         }
+
+        user.setToken(UUID.randomUUID().toString());
 
         return usersDao.save(user);
     }

@@ -1,6 +1,6 @@
 package bestcommerce.test.modules.users;
 
-import java.security.Principal;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +26,7 @@ public class UsersController {
     @Autowired
     private UsersService usersService;
 
-    @PostMapping("/logim")
+    @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody Users user, HttpServletRequest request) {
         Customers own = domain.getCustomer(request);
 
@@ -39,12 +39,12 @@ public class UsersController {
 
             if (check != null) {
                 if (check.getPassword().equals(user.getPassword())) {
-                    return ResponseEntity.ok(user.getToken());
+                    return ResponseEntity.ok(check.getToken());
                 } else {
                     return ResponseEntity.badRequest().body("Password incorrect !!!");
                 }
             } else {
-                return ResponseEntity.badRequest().body("Error in login !!!");
+                return ResponseEntity.badRequest().body("Email not registered !!!");
             }
         } catch (EmailAlreadyTakenException e) {
             return ResponseEntity.badRequest().body("Error in login !!!");
@@ -62,6 +62,7 @@ public class UsersController {
         try {
             user.setCustomer(own);
             usersService.createUser(user);
+
             return ResponseEntity.ok("User created a success.");
         } catch (EmailAlreadyTakenException e) {
             return ResponseEntity.badRequest().body("Email in use !!!");
