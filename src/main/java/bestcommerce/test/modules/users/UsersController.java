@@ -26,7 +26,7 @@ public class UsersController {
     private UsersService usersService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Users user, HttpServletRequest request) {
+    public ResponseEntity<String> login(@RequestBody UsersDto user, HttpServletRequest request) {
         Customers own = domain.getCustomer(request);
 
         if (own == null) {

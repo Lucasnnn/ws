@@ -1,5 +1,7 @@
 package bestcommerce.test.modules.Categories;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import bestcommerce.test.modules.Customers.Customers;
 import bestcommerce.test.utils.AbstractEntity;
 import jakarta.persistence.Entity;
@@ -11,6 +13,7 @@ public class Categories extends AbstractEntity {
 
     private String name;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Customers customer;
 

@@ -2,6 +2,8 @@ package bestcommerce.test.modules.Customers;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import bestcommerce.test.modules.Stores.Stores;
 import bestcommerce.test.modules.users.Users;
 import bestcommerce.test.utils.AbstractEntity;
@@ -21,9 +23,10 @@ public class Customers extends AbstractEntity {
 
     private String platformName;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     private Users owner;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     private List<Stores> stores;
 

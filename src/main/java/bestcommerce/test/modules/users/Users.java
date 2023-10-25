@@ -1,5 +1,7 @@
 package bestcommerce.test.modules.users;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import bestcommerce.test.modules.Customers.Customers;
 import bestcommerce.test.utils.AbstractEntity;
 import jakarta.persistence.Column;
@@ -21,9 +23,11 @@ public class Users extends AbstractEntity {
     @Column(name = "active", nullable = false, columnDefinition = "boolean default true")
     private boolean active;
 
+    @JsonIgnore
     @ManyToOne
     private Customers customer;
 
+    @JsonIgnore
     @Column(columnDefinition = "TEXT")
     private String token;
 

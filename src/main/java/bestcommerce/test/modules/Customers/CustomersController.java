@@ -1,9 +1,6 @@
 package bestcommerce.test.modules.Customers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,10 +18,5 @@ public class CustomersController {
     @PostMapping("/create")
     public Customers createCustomer(@RequestBody Customers customer) {
         return customersService.createCustomer(customer);
-    }
-
-    @GetMapping("/listAll")
-    public List<Customers> getAllCustomers() {
-        return customersService.getAllCustomers();
     }
 }

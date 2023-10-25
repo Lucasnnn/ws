@@ -2,7 +2,8 @@ package bestcommerce.test.modules.Products;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import bestcommerce.test.modules.Categories.Categories;
 import bestcommerce.test.modules.Stores.Stores;
@@ -27,11 +28,16 @@ public class Products extends AbstractEntity {
     @Column(nullable = false)
     private int stockQuantity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     private Categories category;
 
+    @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
     private Stores store;
+
+    @JsonIgnore
+    @Column(name = "actived", nullable = false, columnDefinition = "boolean default true")
+    private boolean actived;
 
     @Column(name = "shared", nullable = false, columnDefinition = "boolean default false")
     private boolean shared;
@@ -49,8 +55,7 @@ public class Products extends AbstractEntity {
 
     private Date releaseDate;
 
-    @Column(columnDefinition = "jsonb")
-    private List<String> images;
+    private String imageUrl;
 
     // Getters e Setters
 
@@ -134,14 +139,6 @@ public class Products extends AbstractEntity {
         this.releaseDate = releaseDate;
     }
 
-    public List<String> getImages() {
-        return images;
-    }
-
-    public void setImages(List<String> images) {
-        this.images = images;
-    }
-
     public Stores getStore() {
         return store;
     }
@@ -164,5 +161,21 @@ public class Products extends AbstractEntity {
 
     public void setPickup(boolean pickup) {
         this.pickup = pickup;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public boolean isActived() {
+        return actived;
+    }
+
+    public void setActived(boolean actived) {
+        this.actived = actived;
     }
 }
