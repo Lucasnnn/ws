@@ -1,33 +1,21 @@
-# Use the base image
-FROM openjdk:8u151-jdk-alpine
-
+FROM openjdk:17-jdk-slim AS build
 WORKDIR /app
 
-RUN apk add --no-cache maven
+RUN apt-get update && apt-get install -y maven
 
-COPY pom.xml /app
-RUN ["mvn", "install"]
+COPY pom.xml .
 
-COPY . /app
+RUN mvn install
 
-RUN ["mvn", "clean", "package"]
+COPY . .
 
-FROM openjdk:8u151-jre-alpine
+RUN mvn clean package -DskipTests=true
 
+FROM openjdk:17-jdk-slim
 WORKDIR /app
 
-COPY --from=0 /app/target/test.jar /app/test.jar
+COPY --from=build /app/target/test-0.0.1-SNAPSHOT.jar app.jar
 
-# Install necessary packages
-RUN apk add -U tzdata && \
-    apk add --update ttf-dejavu && \
-    apk --no-cache add msttcorefonts-installer fontconfig && \
-    rm -rf /var/cache/apk/*
+EXPOSE 8080
 
-
-# Set the timezone
-RUN cp /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime && \
-    apk del -U tzdata
-
-# Set the entry point
-CMD ["java", "-Dspring.profiles.active=prod", "-Duser.timezone=GMT-03:00", "-Dspring.config.location=classpath:/application.yml,file:/app/config/application.yml", "-jar", "test.jar"]
+CMD ["java", "-Dspring.profiles.active=prod",  "-Dspring.config.location=classpath:/application.yml,file:/app/config/application.yml", "-jar", "app.jar"]
