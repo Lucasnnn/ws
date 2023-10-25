@@ -22,6 +22,10 @@ public class UsersService {
         return usersDao.findById(id).orElse(null);
     }
 
+    public Users getByEmailCustomer(String email, Long CustomerId) {
+        return usersDao.findUserByEmailAndCustomerId(email, CustomerId).orElse(null);
+    }
+
     public Users getByToken(String token) {
         return usersDao.findByToken(token).orElse(null);
     }

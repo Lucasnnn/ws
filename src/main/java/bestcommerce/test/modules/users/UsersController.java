@@ -27,12 +27,28 @@ public class UsersController {
     private UsersService usersService;
 
     @PostMapping("/logim")
-    public ResponseEntity<String> login(@RequestBody Users user, HttpServletRequest request, Principal principal) {
+    public ResponseEntity<String> login(@RequestBody Users user, HttpServletRequest request) {
         Customers own = domain.getCustomer(request);
 
-        System.out.println(principal.getName());
+        if (own == null) {
+            return ResponseEntity.badRequest().body("Not valid domain !");
+        }
 
-        return ResponseEntity.ok("Usuário criado com sucesso");
+        try {
+            Users check = usersService.getByEmailCustomer(user.getEmail(), own.getId());
+
+            if (check != null) {
+                if (check.getPassword().equals(user.getPassword())) {
+                    return ResponseEntity.ok(user.getToken());
+                } else {
+                    return ResponseEntity.badRequest().body("Password incorrect !!!");
+                }
+            } else {
+                return ResponseEntity.badRequest().body("Error in login !!!");
+            }
+        } catch (EmailAlreadyTakenException e) {
+            return ResponseEntity.badRequest().body("Error in login !!!");
+        }
     }
 
     @PostMapping("/create")
@@ -40,7 +56,7 @@ public class UsersController {
         Customers own = domain.getCustomer(request);
 
         if (own == null) {
-            return null;
+            return ResponseEntity.badRequest().body("Not valid domain !");
         }
 
         try {
