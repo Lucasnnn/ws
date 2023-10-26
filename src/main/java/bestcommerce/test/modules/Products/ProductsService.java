@@ -18,4 +18,12 @@ public class ProductsService {
     public List<Products> listAllByCustomer(Long CustomerId) {
         return productsDao.findAllByCustomer(CustomerId);
     }
+
+    public List<Products> listByCategory(Long OwnerId, Long CategoryId) {
+        return productsDao.findAllByCategory(OwnerId, CategoryId);
+    }
+
+    public int deleteById(Long ProductId) {
+        return productsDao.removeById(ProductId);
+    }
 }

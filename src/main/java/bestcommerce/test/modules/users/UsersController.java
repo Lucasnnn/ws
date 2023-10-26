@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import bestcommerce.test.Exceptions.DomainException;
 import bestcommerce.test.Exceptions.EmailAlreadyTakenException;
 import bestcommerce.test.modules.Customers.Customers;
 import bestcommerce.test.utils.DomainUtil;
@@ -27,11 +26,7 @@ public class UsersController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UsersDto user, HttpServletRequest request) {
-        Customers own = domain.getCustomer(request);
-
-        if (own == null) {
-            throw new DomainException();
-        }
+        Customers own = domain.getOwner(request);
 
         try {
             Users check = usersService.getByEmailCustomer(user.getEmail(), own.getId());
@@ -52,11 +47,7 @@ public class UsersController {
 
     @PostMapping("/create")
     public ResponseEntity<String> createUser(@RequestBody Users user, HttpServletRequest request) {
-        Customers own = domain.getCustomer(request);
-
-        if (own == null) {
-            throw new DomainException();
-        }
+        Customers own = domain.getOwner(request);
 
         try {
             user.setCustomer(own);
